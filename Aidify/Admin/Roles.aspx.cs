@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System;
+using Aidify;
 
 namespace Aidify.Admin
 {
-    public partial class Roles : System.Web.UI.Page
+    // Roles page is read-only — the permission matrix is a designed UI mockup.
+    // Role assignment is done via Admin/Users/Edit.aspx (ddlRole).
+    public partial class Roles : BaseRolePage
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected override string RequiredRole => Constants.RoleAdmin;
 
-        }
+        protected void Page_Load(object sender, EventArgs e) { }
     }
 }

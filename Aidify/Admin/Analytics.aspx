@@ -431,7 +431,7 @@
                 <div class="analytics-card">
                     <span class="mini-label">Total Enrollments</span>
                     <div class="d-flex align-items-baseline gap-2">
-                        <div class="stat-number">12,842</div>
+                        <asp:Literal ID="litTotalAttempts" runat="server">—</asp:Literal>
                         <small class="text-danger fw-bold">↑ 12%</small>
                     </div>
                 </div>
@@ -458,7 +458,7 @@
                 <div class="analytics-card">
                     <span class="mini-label">Active Learners</span>
                     <div class="d-flex align-items-baseline gap-2">
-                        <div class="stat-number">2,105</div>
+                        <asp:Literal ID="litActiveLearners" runat="server">—</asp:Literal>
                         <small class="text-danger fw-bold">↑ 8%</small>
                     </div>
                 </div>

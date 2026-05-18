@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System;
+using Aidify;
 
 namespace Aidify.Admin.Content
 {
-    public partial class ManagePublicPages : System.Web.UI.Page
+    // Manage Public Pages — visibility toggles are UI-only.
+    // Extend with a PublicPages DB table in a future sprint if persistence is needed.
+    public partial class ManagePublicPages : BaseRolePage
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected override string RequiredRole => Constants.RoleAdmin;
 
-        }
+        protected void Page_Load(object sender, EventArgs e) { }
     }
 }

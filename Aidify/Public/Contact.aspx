@@ -40,7 +40,9 @@
                             <asp:TextBox ID="txtMessage" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="6" placeholder="How can we assist you today?"></asp:TextBox>
                         </div>
 
-                        <asp:Button ID="btnSend" runat="server" Text="Send Message" CssClass="btn btn-aidify btn-lg px-5" />
+                        <asp:Label ID="lblConfirm" runat="server" Visible="false"></asp:Label>
+                        <asp:Button ID="btnSend" runat="server" Text="Send Message"
+                            CssClass="btn btn-aidify btn-lg px-5" OnClick="btnSend_Click" />
 
                     </div>
                 </div>

@@ -569,6 +569,8 @@
     <Compile Include="App_Code\Helpers\DbHelper.cs" />
     <Compile Include="App_Code\Services\AuditService.cs" />
     <Compile Include="App_Code\Services\NotificationService.cs" />
+    <Compile Include="App_Code\Services\ReportService.cs" />
+
     <Compile Include="App_Code\Services\EmailService.cs" />
     <Compile Include="App_Code\Services\AuthService.cs" />
     <Compile Include="App_Code\DAL\UserRepository.cs" />

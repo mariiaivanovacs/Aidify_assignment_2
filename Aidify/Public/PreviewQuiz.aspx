@@ -189,7 +189,9 @@
                                 ID="btnSubmitPreviewQuiz"
                                 runat="server"
                                 Text="Submit Preview Quiz"
-                                CssClass="btn btn-aidify" />
+                                CssClass="btn btn-aidify"
+                                OnClick="btnSubmitPreviewQuiz_Click" />
+                            <asp:Literal ID="lblQuizResult" runat="server" Visible="false"></asp:Literal>
                         </div>
 
                     </div>

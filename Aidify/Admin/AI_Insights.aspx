@@ -416,6 +416,20 @@
             </div>
 
         </div>
+
+        <!-- ── AI Chat Widget (Phase C) ── -->
+        <div class="mt-5 p-4 border rounded" style="background:#f8f9fa;">
+            <h5 class="fw-bold mb-1"><i class="bi bi-robot me-2 text-danger"></i>Ask the AI Assistant</h5>
+            <asp:Literal ID="litAIStatus" runat="server" />
+            <div class="d-flex gap-2 mt-3">
+                <asp:TextBox ID="txtAdminQuestion" runat="server" CssClass="form-control"
+                    placeholder="e.g. Which modules have the lowest completion rates?" />
+                <asp:Button ID="btnAskAI" runat="server" Text="Ask"
+                    CssClass="btn btn-aidify px-4" OnClick="btnAskAI_Click" />
+            </div>
+            <asp:Literal ID="litAIResponse" runat="server" Visible="false" />
+        </div>
+
     </div>
 </main>
 
