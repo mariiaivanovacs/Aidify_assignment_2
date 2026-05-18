@@ -293,6 +293,9 @@
             </p>
 
             <!-- Form Card -->
+            <asp:HiddenField ID="hfUserId" runat="server" />
+            <asp:Label ID="lblStatus" runat="server" CssClass="d-block mb-3" Visible="false"></asp:Label>
+
             <div class="edit-form-card mb-4">
 
                 <div class="row g-4 mb-4">
@@ -316,10 +319,9 @@
                     <div class="col-md-6">
                         <label>Role Selection</label>
                         <asp:DropDownList ID="ddlRole" runat="server" CssClass="form-select">
-                            <asp:ListItem>Learner</asp:ListItem>
-                            <asp:ListItem>Instructor</asp:ListItem>
-                            <asp:ListItem Selected="True">Administrator</asp:ListItem>
-                            <asp:ListItem>Supervisor</asp:ListItem>
+                            <asp:ListItem Value="Learner">Learner</asp:ListItem>
+                            <asp:ListItem Value="Instructor">Instructor</asp:ListItem>
+                            <asp:ListItem Value="Admin">Admin</asp:ListItem>
                         </asp:DropDownList>
                     </div>
                     <div class="col-md-6">
@@ -346,7 +348,10 @@
 
                 <div class="d-flex justify-content-end gap-3">
                     <a href="List.aspx" class="btn-cancel">Cancel</a>
-                    <asp:Button ID="btnSave" runat="server" Text="Save Changes" CssClass="btn btn-aidify px-4" />
+                    <asp:Button ID="btnDisable" runat="server" Text="Disable User"
+                        CssClass="btn btn-outline-danger px-4" OnClick="btnDisable_Click" />
+                    <asp:Button ID="btnSave" runat="server" Text="Save Changes"
+                        CssClass="btn btn-aidify px-4" OnClick="btnSave_Click" />
                 </div>
 
             </div>

@@ -541,7 +541,7 @@
                                 <small class="text-success fw-bold">+12% ↑</small>
                             </div>
                             <span>Total active users</span>
-                            <h2>14,285</h2>
+                            <h2><asp:Literal ID="litTotalUsers" runat="server">—</asp:Literal></h2>
                             <p>Registered learners and staff</p>
                         </div>
                     </div>
@@ -584,9 +584,9 @@
                                 </div>
                                 <small class="text-danger fw-bold">Priority</small>
                             </div>
-                            <span>Critical Alerts</span>
-                            <h2>3 Active</h2>
-                            <p>Needs admin review</p>
+                            <span>Pending Reviews</span>
+                            <h2><asp:Literal ID="litPendingModules" runat="server">—</asp:Literal></h2>
+                            <p>Modules awaiting approval</p>
                         </div>
                     </div>
 

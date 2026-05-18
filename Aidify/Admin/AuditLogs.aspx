@@ -386,35 +386,36 @@
                         <span class="input-group-text">
                             <i class="bi bi-search"></i>
                         </span>
-                        <input type="text"
-                               class="form-control"
-                               placeholder="Search User ID, Action, or IP Address..." />
+                        <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control"
+                            placeholder="Search User ID, Action, or IP Address..." />
                     </div>
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">Action Type</label>
-                    <select class="form-select">
-                        <option>All Actions</option>
-                        <option>User Login</option>
-                        <option>Module Update</option>
-                        <option>Security Alert</option>
-                    </select>
+                    <asp:DropDownList ID="ddlActionType" runat="server" CssClass="form-select">
+                        <asp:ListItem Value="">All Actions</asp:ListItem>
+                        <asp:ListItem Value="Login">User Login</asp:ListItem>
+                        <asp:ListItem Value="UpdateUser">User Updated</asp:ListItem>
+                        <asp:ListItem Value="ApproveModule">Approve Module</asp:ListItem>
+                        <asp:ListItem Value="RejectModule">Reject Module</asp:ListItem>
+                        <asp:ListItem Value="DisableUser">Disable User</asp:ListItem>
+                        <asp:ListItem Value="EnableUser">Enable User</asp:ListItem>
+                    </asp:DropDownList>
                 </div>
 
                 <div class="col-md-2">
                     <label class="form-label">Date Range</label>
-                    <select class="form-select">
-                        <option>Last 24 Hours</option>
-                        <option>Last 7 Days</option>
-                        <option>Last 30 Days</option>
-                    </select>
+                    <asp:DropDownList ID="ddlDateRange" runat="server" CssClass="form-select">
+                        <asp:ListItem Value="24">Last 24 Hours</asp:ListItem>
+                        <asp:ListItem Value="168">Last 7 Days</asp:ListItem>
+                        <asp:ListItem Value="720">Last 30 Days</asp:ListItem>
+                    </asp:DropDownList>
                 </div>
 
                 <div class="col-md-3">
-                    <button class="btn-apply-filter">
-                        <i class="bi bi-funnel"></i> Apply
-                    </button>
+                    <asp:Button ID="btnFilter" runat="server" Text="Apply Filter"
+                        CssClass="btn-apply-filter" OnClick="btnFilter_Click" />
                 </div>
 
             </div>
@@ -437,64 +438,28 @@
                     </thead>
 
                     <tbody>
-
-                        <tr>
-                            <td class="ps-4 py-3">
-                                <div class="fw-medium">2026-11-20</div>
-                                <small class="text-muted">14:22:05 UTC</small>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="audit-avatar" style="background:#959efd;color:#27308a;">JD</div>
-                                    <span class="fw-medium">john_doe_99</span>
-                                </div>
-                            </td>
-                            <td>Module Update</td>
-                            <td><span class="badge-success-custom">Success</span></td>
-                            <td class="text-muted">192.168.1.1</td>
-                            <td class="text-end pe-4">
-                                <a href="#" class="text-danger fw-semibold text-decoration-none">View JSON</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="ps-4 py-3">
-                                <div class="fw-medium">2026-11-20</div>
-                                <small class="text-muted">14:18:12 UTC</small>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="audit-avatar" style="background:#ffdad6;color:#93000a;">SA</div>
-                                    <span class="fw-medium">sys_admin</span>
-                                </div>
-                            </td>
-                            <td>Security Config</td>
-                            <td><span class="badge-danger-custom">Failed</span></td>
-                            <td class="text-muted">45.23.1.88</td>
-                            <td class="text-end pe-4">
-                                <a href="#" class="text-danger fw-semibold text-decoration-none">View Error</a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="ps-4 py-3">
-                                <div class="fw-medium">2026-11-20</div>
-                                <small class="text-muted">13:55:40 UTC</small>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="audit-avatar" style="background:#d8f3e7;color:#0a6640;">MK</div>
-                                    <span class="fw-medium">m_kingston</span>
-                                </div>
-                            </td>
-                            <td>User Login</td>
-                            <td><span class="badge-success-custom">Success</span></td>
-                            <td class="text-muted">210.12.94.3</td>
-                            <td class="text-end pe-4">
-                                <a href="#" class="text-danger fw-semibold text-decoration-none">View Session</a>
-                            </td>
-                        </tr>
-
+                        <asp:Repeater ID="rptLogs" runat="server">
+                            <ItemTemplate>
+                                <tr>
+                                    <td class="ps-4 py-3">
+                                        <div class="fw-medium"><%# ((DateTime)Eval("Timestamp")).ToString("yyyy-MM-dd") %></div>
+                                        <small class="text-muted"><%# ((DateTime)Eval("Timestamp")).ToString("HH:mm:ss") %> UTC</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div class="audit-avatar" style="background:#e9ecef;color:#495057;"><%# Eval("ActorInitials") %></div>
+                                            <span class="fw-medium"><%# Server.HtmlEncode(Eval("ActorName").ToString()) %></span>
+                                        </div>
+                                    </td>
+                                    <td><%# Server.HtmlEncode(Eval("Action").ToString()) %></td>
+                                    <td><span class="badge-success-custom">Recorded</span></td>
+                                    <td class="text-muted"><%# Server.HtmlEncode(Eval("IPAddress").ToString()) %></td>
+                                    <td class="text-end pe-4">
+                                        <small class="text-muted"><%# Server.HtmlEncode(Eval("TargetEntity").ToString()) %></small>
+                                    </td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
                     </tbody>
                 </table>
             </div>

@@ -181,7 +181,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="stat-card">
                         <small class="text-muted fw-bold">TOTAL USERS</small>
-                        <h3>1,284</h3>
+                        <h3><asp:Literal ID="litTotalUsers" runat="server">—</asp:Literal></h3>
                         <small class="text-muted">↗ 12% from last month</small>
                     </div>
                 </div>
@@ -189,7 +189,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="stat-card">
                         <small class="text-muted fw-bold">ACTIVE LEARNERS</small>
-                        <h3>942</h3>
+                        <h3><asp:Literal ID="litActiveLearners" runat="server">—</asp:Literal></h3>
                         <div class="progress mt-2" style="height: 5px;">
                             <div class="progress-bar bg-secondary" style="width: 74%;"></div>
                         </div>
@@ -199,7 +199,7 @@
                 <div class="col-md-6 col-lg-3">
                     <div class="stat-card">
                         <small class="text-muted fw-bold">PENDING APPROVALS</small>
-                        <h3>18</h3>
+                        <h3><asp:Literal ID="litPendingApprovals" runat="server">—</asp:Literal></h3>
                         <small class="text-danger">Requires attention</small>
                     </div>
                 </div>
@@ -221,22 +221,19 @@
                                 <span class="input-group-text bg-light">
                                     <i class="bi bi-search"></i>
                                 </span>
-                                <input type="text" class="form-control bg-light" placeholder="Search by name, email, or ID..." />
+                                <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control bg-light" placeholder="Search by name, email, or ID..." />
                             </div>
                         </div>
 
                         <div class="col-lg-7 d-flex justify-content-lg-end gap-2">
-                            <button type="button" class="btn btn-light border">
-                                <i class="bi bi-filter me-1"></i> Filter Roles
-                            </button>
-
-                            <button type="button" class="btn btn-light border">
-                                <i class="bi bi-calendar me-1"></i> Date Range
-                            </button>
-
-                            <button type="button" class="btn btn-light border">
-                                <i class="bi bi-download"></i>
-                            </button>
+                            <asp:DropDownList ID="ddlRoleFilter" runat="server" CssClass="form-select w-auto">
+                                <asp:ListItem Value="">All Roles</asp:ListItem>
+                                <asp:ListItem Value="Admin">Admin</asp:ListItem>
+                                <asp:ListItem Value="Instructor">Instructor</asp:ListItem>
+                                <asp:ListItem Value="Learner">Learner</asp:ListItem>
+                            </asp:DropDownList>
+                            <asp:Button ID="btnSearch" runat="server" Text="Search"
+                                CssClass="btn btn-aidify" OnClick="btnSearch_Click" />
                         </div>
                     </div>
                 </div>
@@ -254,53 +251,31 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td class="ps-4">
-                                    <span class="avatar-circle bg-info-subtle text-info">SJ</span>
-                                    <strong>Dr. Sarah Jenkins</strong><br />
-                                    <small class="text-muted ms-5">s.jenkins@aidify.edu</small>
-                                </td>
-                                <td><span class="role-badge role-instructor">Instructor</span></td>
-                                <td><span class="status-dot bg-success"></span>Active</td>
-                                <td><small class="text-muted">2 hours ago</small></td>
-                                <td class="text-end pe-4">
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-eye"></i></a>
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="#" class="text-danger"><i class="bi bi-person-x"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="ps-4">
-                                    <span class="avatar-circle bg-danger-subtle text-danger">MA</span>
-                                    <strong>Marcus Aris</strong><br />
-                                    <small class="text-muted ms-5">marcus.a@gmail.com</small>
-                                </td>
-                                <td><span class="role-badge role-learner">Learner</span></td>
-                                <td><span class="status-dot bg-warning"></span>Pending</td>
-                                <td><small class="text-muted">Never</small></td>
-                                <td class="text-end pe-4">
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-eye"></i></a>
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="#" class="text-danger"><i class="bi bi-person-x"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="ps-4">
-                                    <span class="avatar-circle bg-success-subtle text-success">RC</span>
-                                    <strong>Robert Chen</strong><br />
-                                    <small class="text-muted ms-5">r.chen@aidify.admin</small>
-                                </td>
-                                <td><span class="role-badge role-admin">Admin</span></td>
-                                <td><span class="status-dot bg-success"></span>Active</td>
-                                <td><small class="text-muted">15 mins ago</small></td>
-                                <td class="text-end pe-4">
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-eye"></i></a>
-                                    <a href="Edit.aspx" class="text-dark me-3"><i class="bi bi-pencil"></i></a>
-                                    <a href="#" class="text-danger"><i class="bi bi-person-x"></i></a>
-                                </td>
-                            </tr>
+                            <asp:Repeater ID="rptUsers" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td class="ps-4">
+                                            <span class="avatar-circle bg-secondary-subtle text-secondary"><%# Eval("Initials") %></span>
+                                            <strong><%# Server.HtmlEncode(Eval("FullName").ToString()) %></strong><br />
+                                            <small class="text-muted ms-5"><%# Server.HtmlEncode(Eval("Email").ToString()) %></small>
+                                        </td>
+                                        <td><span class="role-badge <%# Eval("RoleBadgeCss") %>"><%# Eval("RoleName") %></span></td>
+                                        <td>
+                                            <span class='status-dot <%# (bool)Eval("IsActive") ? "bg-success" : "bg-danger" %>'></span>
+                                            <%# Eval("StatusLabel") %>
+                                        </td>
+                                        <td><small class="text-muted">—</small></td>
+                                        <td class="text-end pe-4">
+                                            <a href='<%# "Edit.aspx?userId=" + Eval("UserId") %>' class="text-dark me-3"><i class="bi bi-pencil"></i></a>
+                                        </td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <asp:Repeater ID="rptEmpty" runat="server">
+                                <ItemTemplate>
+                                    <tr><td colspan="5" class="text-center text-muted py-4">No users found.</td></tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
                         </tbody>
                     </table>
                 </div>
