@@ -7,11 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Aidify
+namespace Aidify.Admin.Users
 {
 
 
-    public partial class About
+    public partial class List
     {
     }
 }
